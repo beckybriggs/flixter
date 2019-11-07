@@ -1,6 +1,7 @@
 <br />
 <div class="booyah-box col-10 offset-1">
   <h1 class="text-center"><%= current_course.title %></h1>
+  <%= image_tag current_course.image.to_s, class: 'img-fluid' %>
   <br />
   <%= link_to 'Preview As Student...', course_path(current_course), class: 'btn btn-warning float-right' %>
   <br class="clr" />
@@ -31,18 +32,18 @@
   <div class="row">
     <div class="col-sm-4 col-12 text-center">
       <span class="badge badge-default">
-        <%= number_to_currency @course.cost %>
+        <%= number_to_currency current_course.cost %>
       </span>
 
-      <% if current_user && current_user == @course.user %>
+      <% if current_user && current_user == current_course.user %>
         <br />
         <br />
-        <%= link_to 'Administer', instructor_course_path(@course), class: 'btn btn-danger btn-large' %>
+        <%= link_to 'Administer', instructor_course_path(current_course), class: 'btn btn-danger btn-large' %>
       <% end %>
     </div>
 
     <div class="col-sm-8 col-12">
-      <%= @course.description %>
+      <%= current_course.description %>
     </div>
   </div>
 </div>
