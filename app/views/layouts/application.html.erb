@@ -16,7 +16,7 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Flixter</a>
+    <%= link_to 'Flixter', root_path, class: 'navbar-brand' %>
 
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav mr-auto mt-2 mt-md-0">
@@ -67,11 +67,11 @@
           <div class="col-12 col-sm-3">
             <b>About</b>
             <br />
-            <%= link_to 'Team', '#' %>
+            <%= link_to 'Team', team_path %>
             <br />
-            <%= link_to 'Careers', '#' %>
+            <%= link_to 'Careers', careers_path %>
             <br />
-            <%= link_to 'Privacy Policy', '#' %>
+            <%= link_to 'Privacy Policy', privacy_path %>
           </div>
           <div class="col-12 col-sm-3">
             <b>Contact</b>
