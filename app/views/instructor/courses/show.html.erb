@@ -4,7 +4,7 @@
       var lessonUrl = $( event.target).data('lesson-url');
       $('#newLessonForm').attr('action', lessonUrl);
     });
-    
+
     $('.lessons').sortable({
       update: function( event, ui ) {
         $.ajax({
@@ -33,8 +33,53 @@
 
 <br />
 <div class="booyah-box col-10 offset-1">
-  <h1 class="text-center"><%= current_course.title %></h1>
-  <%= image_tag current_course.image.to_s, class: 'img-fluid' %>
+  <h1 class="text-center">
+    <%= current_course.title %>
+    <br />
+    <%= image_tag current_course.image.to_s, class: 'img-fluid' %>
+  </h1>
+  <br />
+  <div class="row">
+    <div class="col-sm-4 col-3 offset-1 text-center">
+      <span class="badge badge-default">
+        <%= number_to_currency current_course.cost %>
+      </span>
+
+      <% if current_user && current_user == current_course.user %>
+        <br />
+        <br />
+        <%= link_to 'Administer', instructor_course_path(current_course), class: 'btn btn-danger btn-large' %>
+      <% end %>
+
+      <br />
+      <br />
+
+      <% if current_user %>
+        <% if current_user.enrolled_in?(current_course) %>
+          <h3 class="badge badge-info">You Are Enrolled!</h3>
+        <% else %>
+          <% if @course.free? %>
+            <%= link_to 'Enroll', course_enrollments_path(current_course), class: 'btn btn-primary', method: :post %>
+          <% else %>
+            <%= form_tag course_enrollments_path(current_course) do %>
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-email="<%= current_user.email %>"
+                      data-description="<%= @course.title %> (<%= number_to_currency @course.cost %>)"
+                      data-amount="<%= (@course.cost * 100).to_i %>"
+                      data-locale="auto"></script>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <h3 class="badge badge-info">Sign In to Enroll!</h3>
+      <% end %>
+    </div>
+
+    <div class="col-sm-6 col-8">
+      <%= current_course.description %>
+    </div>
+  </div>
 
   <div class="text-center">
     <!-- Button trigger modal -->
