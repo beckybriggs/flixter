@@ -58,7 +58,7 @@
         <% if current_user.enrolled_in?(current_course) %>
           <h3 class="badge badge-info">You Are Enrolled!</h3>
         <% else %>
-          <% if @course.free? %>
+          <% if current_course.free? %>
             <%= link_to 'Enroll', course_enrollments_path(current_course), class: 'btn btn-primary', method: :post %>
           <% else %>
             <%= form_tag course_enrollments_path(current_course) do %>
